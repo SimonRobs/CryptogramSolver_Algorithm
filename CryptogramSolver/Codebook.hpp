@@ -18,16 +18,18 @@
 class Codebook {
     
 public:
-    Codebook(const std::vector<std::string>& allWords, const std::vector<EncryptedWord*>& encryptedWords);
+    Codebook(const std::vector<EncryptedWord*>& encryptedWords);
     Codebook(const Codebook& codebook);
     
-    std::vector<std::string> getPossibleWords(EncryptedWord* encryptedWord) const;
+    static void initWordList(const std::vector<std::string>& allWords);
+    
+    std::vector<std::string> getPossibleWords(EncryptedWord* encryptedWord, size_t foundMinimum) const;
     void update(std::map<char,char> combinations);
-    void applyTo(EncryptedWord* encryptedWord);
+    bool applyToAndCheckIfExists(EncryptedWord* encryptedWord);
     
     
 private:
-    std::vector<std::vector<std::string>> allWordsByLength;
+    static std::vector<std::vector<std::string>> allWordsByLength;
     std::set<char> knownLetters;
     std::map<char, char> combinations;
     

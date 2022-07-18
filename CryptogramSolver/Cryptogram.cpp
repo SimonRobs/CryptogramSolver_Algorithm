@@ -17,9 +17,9 @@ Cryptogram::Cryptogram(const std::vector<EncryptedWord*>& encryptedWords, Codebo
         encryptedWordsByLength[encryptedWord->size()].push_back(encryptedWord);
 }
 
-void Cryptogram::setCodebook(const Codebook& codebook) {
+bool Cryptogram::setCodebook(const Codebook& codebook) {
     this->codebook = codebook;
-    applyCodebook();
+    return applyCodebook();
 }
 
 std::vector<std::map<char,char>> Cryptogram::getPossibleLetterCombinations() {
@@ -27,7 +27,7 @@ std::vector<std::map<char,char>> Cryptogram::getPossibleLetterCombinations() {
     std::vector<std::string> fewerPossibleWords;
     for(int i = 1; i <= longestEncryptedWordSize; ++i) {
         for (EncryptedWord* encryptedWord: encryptedWordsByLength[i]) {
-            std::vector<std::string> possibleWords = codebook.getPossibleWords(encryptedWord);
+            std::vector<std::string> possibleWords = codebook.getPossibleWords(encryptedWord, fewerPossibleWords.size());
             if(fewerPossibleWords.size() == 0 || (possibleWords.size() > 0 && possibleWords.size() < fewerPossibleWords.size())) {
                 fewerPossibleWords = possibleWords;
                 wordWithFewerPossibilities = encryptedWord;
@@ -62,10 +62,12 @@ bool Cryptogram::wasSolutionFound() const {
 }
 
 
-void Cryptogram::applyCodebook() {
+bool Cryptogram::applyCodebook() {
     for(int i = 1; i <= longestEncryptedWordSize; ++i) {
         for (EncryptedWord* encryptedWord: encryptedWordsByLength[i]) {
-            codebook.applyTo(encryptedWord);
+            if(!codebook.applyToAndCheckIfExists(encryptedWord))
+                return false;
         }
     }
+    return true;
 }

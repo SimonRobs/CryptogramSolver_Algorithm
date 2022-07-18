@@ -7,19 +7,9 @@
 
 #include "Codebook.hpp"
 
-Codebook::Codebook(const std::vector<std::string>& allWords, const std::vector<EncryptedWord*>& encryptedWords) {
-    
-    auto byLength = [](const std::string& s1,const std::string& s2) {
-        return s1.size() < s2.size();
-    };
-    
-    size_t longestWordSize = std::max_element(allWords.begin(), allWords.end(), byLength)->size();
-    allWordsByLength = std::vector<std::vector<std::string>>(longestWordSize + 1);
-    
-    for(auto word: allWords)
-        allWordsByLength[word.size()].push_back(word);
-    
-    
+std::vector<std::vector<std::string>> Codebook::allWordsByLength;
+
+Codebook::Codebook(const std::vector<EncryptedWord*>& encryptedWords) {
     for(EncryptedWord* encryptedWord: encryptedWords) {
         for(EncryptedLetter* letter: encryptedWord->getLetters()) {
             if(letter->getKey() == '_')
@@ -35,7 +25,6 @@ Codebook::Codebook(const Codebook& codebook) {
     combinations.clear();
     
     knownLetters = codebook.knownLetters;
-    allWordsByLength = codebook.allWordsByLength;
     
     for(std::pair<char,char> combination: codebook.combinations) {
         if(combination.first == '_')
@@ -45,6 +34,19 @@ Codebook::Codebook(const Codebook& codebook) {
     }
 }
 
+void Codebook::initWordList(const std::vector<std::string>& allWords) {
+    
+    auto byLength = [](const std::string& s1,const std::string& s2) {
+        return s1.size() < s2.size();
+    };
+    
+    size_t longestWordSize = std::max_element(allWords.begin(), allWords.end(), byLength)->size();
+    Codebook::allWordsByLength = std::vector<std::vector<std::string>>(longestWordSize + 1);
+    
+    for(auto word: allWords)
+        Codebook::allWordsByLength[word.size()].push_back(word);
+    
+}
 
 void Codebook::update(std::map<char,char> combinations) {
     for(std::pair<char,char> combination: combinations) {
@@ -53,10 +55,10 @@ void Codebook::update(std::map<char,char> combinations) {
 }
 
 
-std::vector<std::string> Codebook::getPossibleWords(EncryptedWord* encryptedWord) const {
+std::vector<std::string> Codebook::getPossibleWords(EncryptedWord* encryptedWord, size_t foundMinimum) const {
     std::vector<std::string> possibleWords;
     if(encryptedWord->hasUnknownLetters()) {
-        for(std::string word: allWordsByLength[encryptedWord->size()]) {
+        for(std::string word: Codebook::allWordsByLength[encryptedWord->size()]) {
             bool isPossible = true;
             for(int i = 0; i < encryptedWord->size(); ++i) {
                 bool isLetterFilled = (*encryptedWord)[i]->getValue() != '_';
@@ -67,17 +69,28 @@ std::vector<std::string> Codebook::getPossibleWords(EncryptedWord* encryptedWord
                     break;
                 }
            }
-            if(isPossible) possibleWords.push_back(word);
+            if(isPossible) {
+                possibleWords.push_back(word);
+                if(foundMinimum > 0 && possibleWords.size() > foundMinimum)
+                    return std::vector<std::string>();
+            }
         }
     }
     return possibleWords;
 }
 
 
-void Codebook::applyTo(EncryptedWord* encryptedWord) {
+bool Codebook::applyToAndCheckIfExists(EncryptedWord* encryptedWord) {
     for(EncryptedLetter* encryptedLetter: *encryptedWord) {
         char guessedValue = combinations[encryptedLetter->getKey()];
         if(guessedValue != '\0') encryptedLetter->setValue(guessedValue);
         else encryptedLetter->setValue('_');
     }
+    if(encryptedWord->hasUnknownLetters())
+        return true;
+    
+    for(std::string word: Codebook::allWordsByLength[encryptedWord->size()])
+        if(*encryptedWord == word)
+            return true;
+    return false;
 }

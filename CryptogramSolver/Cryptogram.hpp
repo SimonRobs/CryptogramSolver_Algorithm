@@ -21,14 +21,17 @@ class Cryptogram {
 public:
     Cryptogram(const std::vector<EncryptedWord*>& encryptedWords, Codebook& codebook);
     
-    void setCodebook(const Codebook& codebook);
+    // Returns false if any word in the new phrase does not exist
+    bool setCodebook(const Codebook& codebook);
+    
     std::vector<std::map<char,char>> getPossibleLetterCombinations();
     
     bool wasSolutionFound() const;
     
 private:
     
-    void applyCodebook();
+    // Returns false if any word in the new phrase does not exist
+    bool applyCodebook();
     
     size_t longestEncryptedWordSize;
     std::vector<std::vector<EncryptedWord*>> encryptedWordsByLength;

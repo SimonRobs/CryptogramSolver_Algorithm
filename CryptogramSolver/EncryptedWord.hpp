@@ -35,6 +35,7 @@ public:
     
     bool operator<(const EncryptedWord& word) const;
     EncryptedLetter* operator[](int index);
+    bool operator==(std::string word) const;
     friend std::ostream& operator<<(std::ostream& os, const EncryptedWord& word);
     
 private:

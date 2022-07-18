@@ -24,7 +24,8 @@ int main(int argc, const char * argv[]) {
     std::vector<std::string> words = FileParser::readWordsFile(args.getWordsFilePath());
     std::vector<EncryptedWord*> encryptedWords = FileParser::readCryptogramFile(args.getCryptogramFilePath());
     
-    Codebook codebook = Codebook(words, encryptedWords);
+    Codebook::initWordList(words);
+    Codebook codebook = Codebook(encryptedWords);
     Cryptogram cryptogram = Cryptogram(encryptedWords, codebook);
     
     std::stack<Codebook> codebookStack;
@@ -33,19 +34,19 @@ int main(int argc, const char * argv[]) {
     while(!codebookStack.empty()) {
         Codebook codebook = codebookStack.top();
         codebookStack.pop();
-        cryptogram.setCodebook(codebook);
-        
-        std::vector<std::map<char,char>> possibleLetterCombinations = cryptogram.getPossibleLetterCombinations();
-        for(std::map<char,char> combination: possibleLetterCombinations) {
-            Codebook book = Codebook(codebook);
-            book.update(combination);
-            codebookStack.push(book);
-        }
-        if(cryptogram.wasSolutionFound()) {
-            for(EncryptedWord* encryptedWord: encryptedWords) {
-                std::cout << (*encryptedWord) << " ";
+        if(cryptogram.setCodebook(codebook)) {
+            std::vector<std::map<char,char>> possibleLetterCombinations = cryptogram.getPossibleLetterCombinations();
+            for(std::map<char,char> combination: possibleLetterCombinations) {
+                Codebook book = Codebook(codebook);
+                book.update(combination);
+                codebookStack.push(book);
             }
-            std::cout << std::endl;
+            if(cryptogram.wasSolutionFound()) {
+                for(EncryptedWord* encryptedWord: encryptedWords) {
+                    std::cout << (*encryptedWord) << " ";
+                }
+                std::cout << std::endl;
+            }
         }
     }
     

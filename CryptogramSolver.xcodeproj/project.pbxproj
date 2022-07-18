@@ -33,12 +33,13 @@
 		F41079CC2885D73B00275412 /* Cryptogram.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cryptogram.hpp; sourceTree = "<group>"; };
 		F41079CE2885D77200275412 /* Codebook.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Codebook.cpp; sourceTree = "<group>"; };
 		F41079CF2885D77200275412 /* Codebook.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Codebook.hpp; sourceTree = "<group>"; };
-		F41079D128860D8B00275412 /* cryptogram1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cryptogram1.txt; sourceTree = "<group>"; };
-		F41079D2288610D000275412 /* cryptogram2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cryptogram2.txt; sourceTree = "<group>"; };
+		F41079D4288613D100275412 /* cryptogram.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cryptogram.txt; sourceTree = "<group>"; };
+		F41079D5288613D100275412 /* cryptogram3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cryptogram3.txt; sourceTree = "<group>"; };
+		F41079D6288613D100275412 /* cryptogram2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cryptogram2.txt; sourceTree = "<group>"; };
+		F41079D7288613D100275412 /* cryptogram1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cryptogram1.txt; sourceTree = "<group>"; };
 		F4DE17F0286A2DDA00EF1937 /* CryptogramSolver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CryptogramSolver; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE17F3286A2DDA00EF1937 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F4DE17FC286A2E4E00EF1937 /* words.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
-		F4DE17FD286A2E4E00EF1937 /* cryptogram.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = cryptogram.txt; sourceTree = "<group>"; };
 		F4DE1805286A2F4300EF1937 /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
 		F4DE1806286A307D00EF1937 /* EncryptedLetter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EncryptedLetter.hpp; sourceTree = "<group>"; };
 		F4DE1807286A315400EF1937 /* EncrypedLetter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EncrypedLetter.cpp; sourceTree = "<group>"; };
@@ -62,6 +63,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F41079D3288613D100275412 /* cryptograms */ = {
+			isa = PBXGroup;
+			children = (
+				F41079D4288613D100275412 /* cryptogram.txt */,
+				F41079D5288613D100275412 /* cryptogram3.txt */,
+				F41079D6288613D100275412 /* cryptogram2.txt */,
+				F41079D7288613D100275412 /* cryptogram1.txt */,
+			);
+			path = cryptograms;
+			sourceTree = "<group>";
+		};
 		F4DE17E7286A2DDA00EF1937 = {
 			isa = PBXGroup;
 			children = (
@@ -81,16 +93,14 @@
 		F4DE17F2286A2DDA00EF1937 /* CryptogramSolver */ = {
 			isa = PBXGroup;
 			children = (
+				F41079D3288613D100275412 /* cryptograms */,
+				F4DE17F3286A2DDA00EF1937 /* main.cpp */,
 				F4DE180D286A353600EF1937 /* CommandLineArgumentParser.cpp */,
 				F4DE180E286A353600EF1937 /* CommandLineArgumentParser.hpp */,
 				F4DE180A286A343500EF1937 /* FileParser.cpp */,
 				F4DE1809286A343500EF1937 /* FileParser.hpp */,
 				F4DE180B286A343500EF1937 /* types.hpp */,
-				F4DE17FD286A2E4E00EF1937 /* cryptogram.txt */,
-				F41079D2288610D000275412 /* cryptogram2.txt */,
-				F41079D128860D8B00275412 /* cryptogram1.txt */,
 				F4DE17FC286A2E4E00EF1937 /* words.txt */,
-				F4DE17F3286A2DDA00EF1937 /* main.cpp */,
 				F41079CE2885D77200275412 /* Codebook.cpp */,
 				F41079CF2885D77200275412 /* Codebook.hpp */,
 				F4DE1805286A2F4300EF1937 /* common.hpp */,

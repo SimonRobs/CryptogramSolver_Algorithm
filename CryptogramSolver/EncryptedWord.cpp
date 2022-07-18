@@ -68,6 +68,14 @@ EncryptedLetter* EncryptedWord::operator[](int index) {
     return _letters[index];
 }
 
+bool EncryptedWord::operator==(std::string word) const {
+    if(_letters.size() != word.size()) return false;
+    for(int i = 0; i < _letters.size(); ++i)
+        if(_letters[i]->getValue() != word[i])
+            return false;
+    return true;
+}
+
 std::ostream& operator<<(std::ostream& os, const EncryptedWord& word)
 {
     for(auto letter: word._letters)
