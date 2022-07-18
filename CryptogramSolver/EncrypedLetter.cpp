@@ -9,9 +9,10 @@
 
 EncryptedLetter::EncryptedLetter(char key, char value): _key(key), _value(value) {}
 
-void EncryptedLetter::setValue(char value) {
-    if(_key == '_') return;
+bool EncryptedLetter::setValue(char value) {
+    if(_key == '_') return false;
     _value = value;
+    return true;
 }
 
 char EncryptedLetter::getKey() const {
@@ -25,7 +26,7 @@ char EncryptedLetter::getValue() const {
 std::ostream& operator<<(std::ostream& os, const EncryptedLetter& letter)
 {
     os << letter._value;
-    if(letter._key != '_')
-        os << '(' << letter._key << ')';
+//    if(letter._key != '_')
+//        os << '(' << letter._key << ')';
     return os;
 }

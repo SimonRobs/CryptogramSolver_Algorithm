@@ -18,20 +18,27 @@
 class EncryptedWord {
     
 public:
+    EncryptedWord();
     EncryptedWord(std::string encryptedWord, std::string keys);
 
-    void tryValue(std::string val);
+    // Returns the affected keys
+    std::vector<char> tryValue(std::string val);
+    // Returns true if the word was modified by the change
+    bool changeKey(char key, char value);
     
-    std::vector<EncryptedLetter>& getLetters();
+    std::vector<EncryptedLetter*>& getLetters();
+    bool hasUnknownLetters() const;
     
     size_t size() const;
+    std::vector<EncryptedLetter*>::iterator begin();
+    std::vector<EncryptedLetter*>::iterator end();
     
     bool operator<(const EncryptedWord& word) const;
-    EncryptedLetter operator[](int index);
+    EncryptedLetter* operator[](int index);
     friend std::ostream& operator<<(std::ostream& os, const EncryptedWord& word);
     
 private:
-    std::vector<EncryptedLetter> _letters;
+    std::vector<EncryptedLetter*> _letters;
 };
 
 

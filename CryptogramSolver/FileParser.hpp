@@ -25,7 +25,7 @@ class FileParser {
 public:
     FileParser() = delete;
     static std::vector<std::string> readWordsFile(const std::string& path);
-    static std::vector<EncryptedWord> readCryptogramFile(const std::string& path);
+    static std::vector<EncryptedWord*> readCryptogramFile(const std::string& path);
 };
 
 #endif /* FileParser_hpp */

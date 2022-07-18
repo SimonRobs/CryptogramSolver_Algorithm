@@ -27,7 +27,7 @@ std::vector<std::string> FileParser::readWordsFile(const std::string& path) {
     return words;
 }
 
-std::vector<EncryptedWord> FileParser::readCryptogramFile(const std::string& path) {
+std::vector<EncryptedWord*> FileParser::readCryptogramFile(const std::string& path) {
     std::ifstream file(path);
     
     if(!file.is_open()) throw file_not_found();
@@ -44,7 +44,7 @@ std::vector<EncryptedWord> FileParser::readCryptogramFile(const std::string& pat
     
     if(cryptogramDef.size() != keys.size()) throw file_format_error();
     
-    std::vector<EncryptedWord> cryptogram;
+    std::vector<EncryptedWord*> cryptogram;
     
     std::istringstream cryptogramISS(cryptogramDef);
     std::string word;
@@ -54,7 +54,7 @@ std::vector<EncryptedWord> FileParser::readCryptogramFile(const std::string& pat
     
    while (std::getline(cryptogramISS, word, ' ')) {
        std::getline(keyISS, key, ' ');
-       cryptogram.push_back(EncryptedWord(word, key));
+       cryptogram.push_back(new EncryptedWord(word, key));
    }
     
     return cryptogram;

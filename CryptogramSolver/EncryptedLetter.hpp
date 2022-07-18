@@ -17,7 +17,9 @@ public:
     EncryptedLetter(char key, char value);
     char getKey() const;
     char getValue() const;
-    void setValue(char value);
+    
+    // Returns true if the value was changed
+    bool setValue(char value);
     
     friend std::ostream& operator<<(std::ostream& os, const EncryptedLetter& letter);
     

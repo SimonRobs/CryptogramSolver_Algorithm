@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F41079CD2885D73B00275412 /* Cryptogram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41079CB2885D73B00275412 /* Cryptogram.cpp */; };
+		F41079D02885D77200275412 /* Codebook.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41079CE2885D77200275412 /* Codebook.cpp */; };
 		F4DE17F4286A2DDA00EF1937 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DE17F3286A2DDA00EF1937 /* main.cpp */; };
 		F4DE1808286A315400EF1937 /* EncrypedLetter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DE1807286A315400EF1937 /* EncrypedLetter.cpp */; };
 		F4DE180C286A343500EF1937 /* FileParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DE180A286A343500EF1937 /* FileParser.cpp */; };
@@ -27,6 +29,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F41079CB2885D73B00275412 /* Cryptogram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cryptogram.cpp; sourceTree = "<group>"; };
+		F41079CC2885D73B00275412 /* Cryptogram.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cryptogram.hpp; sourceTree = "<group>"; };
+		F41079CE2885D77200275412 /* Codebook.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Codebook.cpp; sourceTree = "<group>"; };
+		F41079CF2885D77200275412 /* Codebook.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Codebook.hpp; sourceTree = "<group>"; };
+		F41079D128860D8B00275412 /* cryptogram1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cryptogram1.txt; sourceTree = "<group>"; };
+		F41079D2288610D000275412 /* cryptogram2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cryptogram2.txt; sourceTree = "<group>"; };
 		F4DE17F0286A2DDA00EF1937 /* CryptogramSolver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CryptogramSolver; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE17F3286A2DDA00EF1937 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F4DE17FC286A2E4E00EF1937 /* words.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
@@ -79,13 +87,19 @@
 				F4DE1809286A343500EF1937 /* FileParser.hpp */,
 				F4DE180B286A343500EF1937 /* types.hpp */,
 				F4DE17FD286A2E4E00EF1937 /* cryptogram.txt */,
+				F41079D2288610D000275412 /* cryptogram2.txt */,
+				F41079D128860D8B00275412 /* cryptogram1.txt */,
 				F4DE17FC286A2E4E00EF1937 /* words.txt */,
 				F4DE17F3286A2DDA00EF1937 /* main.cpp */,
+				F41079CE2885D77200275412 /* Codebook.cpp */,
+				F41079CF2885D77200275412 /* Codebook.hpp */,
 				F4DE1805286A2F4300EF1937 /* common.hpp */,
-				F4DE1806286A307D00EF1937 /* EncryptedLetter.hpp */,
 				F4DE1807286A315400EF1937 /* EncrypedLetter.cpp */,
+				F4DE1806286A307D00EF1937 /* EncryptedLetter.hpp */,
 				F4DE1810286A466100EF1937 /* EncryptedWord.cpp */,
 				F4DE1811286A466100EF1937 /* EncryptedWord.hpp */,
+				F41079CB2885D73B00275412 /* Cryptogram.cpp */,
+				F41079CC2885D73B00275412 /* Cryptogram.hpp */,
 			);
 			path = CryptogramSolver;
 			sourceTree = "<group>";
@@ -150,6 +164,8 @@
 				F4DE180C286A343500EF1937 /* FileParser.cpp in Sources */,
 				F4DE1812286A466100EF1937 /* EncryptedWord.cpp in Sources */,
 				F4DE180F286A353600EF1937 /* CommandLineArgumentParser.cpp in Sources */,
+				F41079D02885D77200275412 /* Codebook.cpp in Sources */,
+				F41079CD2885D73B00275412 /* Cryptogram.cpp in Sources */,
 				F4DE17F4286A2DDA00EF1937 /* main.cpp in Sources */,
 				F4DE1808286A315400EF1937 /* EncrypedLetter.cpp in Sources */,
 			);
