@@ -49,10 +49,6 @@ int main(int argc, const char * argv[]) {
                 book.update(combination);
                 codebookStack.push(book);
             }
-            for(EncryptedWord* encryptedWord: encryptedWords) {
-                std::cout << (*encryptedWord) << " ";
-            }
-            std::cout << std::endl;
             if(cryptogram.wasSolutionFound()) {
                 for(EncryptedWord* encryptedWord: encryptedWords) {
                     std::cout << (*encryptedWord) << " ";
