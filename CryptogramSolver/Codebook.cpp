@@ -54,21 +54,31 @@ void Codebook::update(std::map<char,char> combinations) {
     }
 }
 
+#include <iostream>
 
 std::vector<std::string> Codebook::getPossibleWords(EncryptedWord* encryptedWord, size_t foundMinimum) const {
     std::vector<std::string> possibleWords;
+    std::set<char> currentlyGuessedValues;
+    
+    for(auto combination: combinations)
+        if(combination.second != '\0')
+            currentlyGuessedValues.insert(combination.second);
+    
     if(encryptedWord->hasUnknownLetters()) {
         for(std::string word: Codebook::allWordsByLength[encryptedWord->size()]) {
             bool isPossible = true;
             for(int i = 0; i < encryptedWord->size(); ++i) {
-                bool isLetterFilled = (*encryptedWord)[i]->getValue() != '_';
-                bool isLetterUsed = knownLetters.find(word[i]) != knownLetters.end();
+                EncryptedLetter* encryptedLetter = (*encryptedWord)[i];
+                bool isLetterFilled = encryptedLetter->getValue() != '_';
+                bool isLetterUsed = knownLetters.find(word[i]) != knownLetters.end() || currentlyGuessedValues.find(word[i]) != currentlyGuessedValues.end();
                 bool areLettersEqual = (*encryptedWord)[i]->getValue() == word[i];
                 if((!isLetterFilled && isLetterUsed) || (isLetterFilled && !areLettersEqual)) {
                     isPossible = false;
                     break;
+                } else if(!isLetterUsed) {
+                    currentlyGuessedValues.insert(encryptedLetter->getValue());
                 }
-           }
+            }
             if(isPossible) {
                 possibleWords.push_back(word);
                 if(foundMinimum > 0 && possibleWords.size() > foundMinimum)
@@ -86,11 +96,13 @@ bool Codebook::applyToAndCheckIfExists(EncryptedWord* encryptedWord) {
         if(guessedValue != '\0') encryptedLetter->setValue(guessedValue);
         else encryptedLetter->setValue('_');
     }
+    
     if(encryptedWord->hasUnknownLetters())
         return true;
     
     for(std::string word: Codebook::allWordsByLength[encryptedWord->size()])
         if(*encryptedWord == word)
             return true;
+    
     return false;
 }

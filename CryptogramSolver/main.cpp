@@ -22,7 +22,15 @@ int main(int argc, const char * argv[]) {
     CommandLineArgumentParser args = CommandLineArgumentParser(argv);
     
     std::vector<std::string> words = FileParser::readWordsFile(args.getWordsFilePath());
-    std::vector<EncryptedWord*> encryptedWords = FileParser::readCryptogramFile(args.getCryptogramFilePath());
+    std::vector<EncryptedWord*> encryptedWords;
+    
+    if (!args.getCryptogramFilePath().empty()) {
+        encryptedWords = FileParser::readCryptogramFile(args.getCryptogramFilePath());
+    }
+    else {
+        auto keyValuePair = args.getCryptogramKeyValuePair();
+        encryptedWords = FileParser::createCryptogram(keyValuePair.first, keyValuePair.second);
+    }
     
     Codebook::initWordList(words);
     Codebook codebook = Codebook(encryptedWords);
@@ -41,6 +49,10 @@ int main(int argc, const char * argv[]) {
                 book.update(combination);
                 codebookStack.push(book);
             }
+            for(EncryptedWord* encryptedWord: encryptedWords) {
+                std::cout << (*encryptedWord) << " ";
+            }
+            std::cout << std::endl;
             if(cryptogram.wasSolutionFound()) {
                 for(EncryptedWord* encryptedWord: encryptedWords) {
                     std::cout << (*encryptedWord) << " ";

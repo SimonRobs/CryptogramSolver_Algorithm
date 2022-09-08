@@ -11,9 +11,12 @@
 
 #include <string>
 
+#include "utils.hpp"
 #include "types.hpp"
 
 struct CommandLineArguments {
+    std::string cryptogramValues;
+    std::string cryptogramKeys;
     std::string wordsFilePath;
     std::string cryptogramFilePath;
 };
@@ -23,6 +26,8 @@ public:
     CommandLineArgumentParser(const char * argv[]);
     std::string getWordsFilePath();
     std::string getCryptogramFilePath();
+    std::pair<std::string, std::string> getCryptogramKeyValuePair();
+    
 private:
     CommandLineArguments arguments;
 };

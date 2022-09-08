@@ -34,19 +34,24 @@ std::vector<EncryptedWord*> FileParser::readCryptogramFile(const std::string& pa
     
     std::string cryptogramDef;
     std::getline(file, cryptogramDef);
-    std::transform(cryptogramDef.begin(), cryptogramDef.end(), cryptogramDef.begin(), [](unsigned char c) { return std::tolower(c);});
+    toLowerCase(cryptogramDef);
     
     std::string keys;
     std::getline(file, keys);
-    std::transform(keys.begin(), keys.end(), keys.begin(), [](unsigned char c) { return std::tolower(c);});
+    toLowerCase(keys);
     
     file.close();
     
     if(cryptogramDef.size() != keys.size()) throw file_format_error();
     
+    return createCryptogram(keys, cryptogramDef);
+}
+
+
+std::vector<EncryptedWord*> FileParser::createCryptogram(const std::string& keys,const std::string& values) {
     std::vector<EncryptedWord*> cryptogram;
     
-    std::istringstream cryptogramISS(cryptogramDef);
+    std::istringstream cryptogramISS(values);
     std::string word;
     
     std::istringstream keyISS(keys);

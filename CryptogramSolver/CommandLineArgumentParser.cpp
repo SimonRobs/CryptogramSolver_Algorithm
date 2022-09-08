@@ -7,11 +7,23 @@
 //
 
 #include "CommandLineArgumentParser.hpp"
+#include <iostream>
 
 
 CommandLineArgumentParser::CommandLineArgumentParser(const char * argv[]) {
     arguments.wordsFilePath = argv[1];
-    arguments.cryptogramFilePath = argv[2];
+    
+    std::string cryptogramFileArg = argv[2];
+    
+    if(cryptogramFileArg.find("-f") != std::string::npos) {
+        arguments.cryptogramFilePath = argv[3];
+    } else {
+        arguments.cryptogramValues = argv[2];
+        toLowerCase(arguments.cryptogramValues);
+        
+        arguments.cryptogramKeys = argv[3];
+        toLowerCase(arguments.cryptogramKeys);
+    }
 }
 
 std::string CommandLineArgumentParser::getWordsFilePath() {
@@ -20,4 +32,8 @@ std::string CommandLineArgumentParser::getWordsFilePath() {
 
 std::string CommandLineArgumentParser::getCryptogramFilePath() {
     return arguments.cryptogramFilePath;
+}
+
+std::pair<std::string,std::string> CommandLineArgumentParser::getCryptogramKeyValuePair() {
+    return std::make_pair(arguments.cryptogramKeys, arguments.cryptogramValues);
 }

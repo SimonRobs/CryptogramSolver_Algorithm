@@ -18,6 +18,7 @@
 #include <sstream>
 #include <cctype>
 
+#include "utils.hpp"
 #include "common.hpp"
 #include "EncryptedWord.hpp"
 
@@ -26,6 +27,7 @@ public:
     FileParser() = delete;
     static std::vector<std::string> readWordsFile(const std::string& path);
     static std::vector<EncryptedWord*> readCryptogramFile(const std::string& path);
+    static std::vector<EncryptedWord*> createCryptogram(const std::string& keys,const std::string& values);
 };
 
 #endif /* FileParser_hpp */
